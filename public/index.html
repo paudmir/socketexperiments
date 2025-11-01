@@ -5,33 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Database example</title>
+    <title>Let there be lyrics</title>
 
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css" />
     
     <!-- import the webpage's client-side javascript file -->
     <script src="main.js" defer></script>
+    <script src="https://genius.codes"></script>
   </head>
   <body>
     <main>
       <header>
         <h1>
-          Wishlog
+          Lyre, lyre <img src="assets/lyra.gif" alt="lyre" width="32" height="32"/>
         </h1>
       </header>
-        <h2>Tell us your secret wish (we won't keep the secret though)</h2>
+        <h2>Enter the name of a song and select 6 words to send.</h2>
         <form id="wishForm" enctype="application/json">
-          <label for="wish">I wish for</label>
+          <label for="wish">Song: </label>
           <input
             type="text"
             id="wish"
             name="wish"
-            placeholder="Your wish"
+            placeholder="Lovely day by Bill Withers, etc."
           />
-          <input type="submit" id="submit" value="Submit" />
+          <input type="submit" id="submit" value="Search" />
         </form>
-        <p><a href="wishes.html">See all wishes</a></p>
+        <p><a href="lyrics.html">Check out your new song</a></p>
     </main>
   </body>
 </html>

@@ -1,11 +1,21 @@
 const express = require('express');
 const Datastore = require('@seald-io/nedb');
+const querystring = require('node:querystring');
+require('dotenv').config();
+
+
+// An array of different song IDs 
+const songs = [102249,123068,45620,2315135];
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
 const server = app.listen(port);
 
 console.log(`Server is listening on port ${port}`);
+console.log(`API key is ${process.env.ATOKEN}`);
+
+const geniusApiUrl = "api.genius.com/songs/";
+
 
 // use this file as the database
 const dbOptions = {
@@ -55,4 +65,29 @@ app.get('/wish', (request, response) => {
     }
     response.json(data);
   })
+});
+
+
+// Getting the lyrics from Genius API
+
+app.get('/external-data', async (req, res) => {
+ 
+  const url = 'https://api.genius.com/songs/2315135';
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.VISUAL_CROSSING_API_KEY}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const data = await response.json();
+    res.json(data);
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Failed to fetch external data' });
+  }
 });

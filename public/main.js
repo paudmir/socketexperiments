@@ -31,7 +31,8 @@ form.addEventListener('submit', async event => {
   };
   
   // send the request and await a response
-  const response = await fetch("/wish", options);
+  const response = await fetch("/external-data", options);
+  //const response = await fetch("/wish", options);
   
   // parse the response into JSON
   const json = await response.json();
