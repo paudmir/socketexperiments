@@ -1,6 +1,3 @@
-import express from 'express';
-import fetch from 'node-fetch';
-
 const express = require('express');
 const Datastore = require('@seald-io/nedb');
 const querystring = require('node:querystring');
@@ -81,8 +78,9 @@ app.get('/external-data', async (req, res) => {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${process.env.VISUAL_CROSSING_API_KEY}`,
-        'Content-Type': 'application/json'
+        'Authorization': `Bearer ${process.env.ATOKEN}`,
+        'Content-Type': 'application/json',
+        'Secret' : process.env.SEC
       }
     });
 
