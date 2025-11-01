@@ -8,7 +8,7 @@
     <title>Let there be lyrics</title>
 
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css" />
     
     <!-- import the webpage's client-side javascript file -->
     <script src="main.js" defer></script>
@@ -26,13 +26,14 @@
           <label for="wish">Song: </label>
           <input
             type="text"
-            id="wish"
-            name="wish"
+            id="songInput"
+            name="songInput"
             placeholder="Lovely day by Bill Withers, etc."
           />
           <input type="submit" id="submit" value="Search" />
         </form>
         <p><a href="lyrics.html">Check out your new song</a></p>
+        <div id="words"></div>
     </main>
   </body>
 </html>

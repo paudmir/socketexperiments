@@ -1,3 +1,4 @@
+const path = require('node:path');
 const express = require('express');
 const Datastore = require('@seald-io/nedb');
 const querystring = require('node:querystring');
@@ -13,10 +14,6 @@ const server = app.listen(port);
 
 console.log(`Server is listening on port ${port}`);
 
-
-const geniusApiUrl = "api.genius.com/songs/";
-
-
 // use this file as the database
 const dbOptions = {
   filename: 'database.db'
@@ -24,7 +21,7 @@ const dbOptions = {
 const database = new Datastore(dbOptions);
 database.loadDatabase();
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // this prevents people from spamming our server with excessively
 // long responses
@@ -58,6 +55,7 @@ app.get('/wish', (request, response) => {
   // grab all the data (since it's not too much!) and then 
   // sort it by timestamp in reverse chronological order
   // (newest first).
+  console.log("in wish");
   database.find({}).sort({timestamp: -1}).exec((error, data) => {
     if (error) {
       response.end();
@@ -70,9 +68,14 @@ app.get('/wish', (request, response) => {
 
 // Getting the lyrics from Genius API
 
-app.get('/external-data', async (req, res) => {
+app.post('/external-data', async (req, res) => {
+  const opt = req.body;
+  console.log("This is what we got from the client:");
+  console.log(opt);
+
   console.log('-----getting data here');
-  const url = 'https://api.genius.com/songs/2315135';
+  const urlson = 'https://api.genius.com/songs/123068';
+  const url = 'https://api.genius.com/referents?song_id=2315135';
 
   try {
     const response = await fetch(url, {
@@ -80,14 +83,14 @@ app.get('/external-data', async (req, res) => {
       headers: {
         'Authorization': `Bearer ${process.env.ATOKEN}`,
         'Content-Type': 'application/json',
-        'Secret' : process.env.SEC
       }
     });
 
     console.log('-----We tried and got a response...maybe?');
     const data = await response.json();
+
     res.json(data);
-    console.log(data);
+
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Failed to fetch external data' });
