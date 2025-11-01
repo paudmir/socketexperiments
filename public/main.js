@@ -35,8 +35,8 @@ form.addEventListener('submit', async event => {
   //const response = await fetch("/wish", options);
   
   // parse the response into JSON
-  const json = await response.json();
-  console.log(json);
+  //const json = await response.json();
+  //console.log(json);
 
   // clear the wish value!
   wish.value = "";
