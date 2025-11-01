@@ -12,7 +12,7 @@ const port = Number(process.env.PORT || 3000);
 const server = app.listen(port);
 
 console.log(`Server is listening on port ${port}`);
-console.log(`API key is ${process.env.ATOKEN}`);
+
 
 const geniusApiUrl = "api.genius.com/songs/";
 
@@ -71,7 +71,7 @@ app.get('/wish', (request, response) => {
 // Getting the lyrics from Genius API
 
 app.get('/external-data', async (req, res) => {
- 
+  console.log('-----getting data here');
   const url = 'https://api.genius.com/songs/2315135';
 
   try {
@@ -84,6 +84,7 @@ app.get('/external-data', async (req, res) => {
       }
     });
 
+    console.log('-----We tried and got a response...maybe?');
     const data = await response.json();
     res.json(data);
     console.log(data);
